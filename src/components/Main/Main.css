@@ -1,0 +1,18 @@
+.input {
+  color: #fff;
+}
+
+.input__search {
+  margin-top: 20px;
+  margin-left: 10px;
+  background-color: aliceblue;
+  border: none;
+  border-radius: 20px;
+}
+
+.input__button {
+  background-color: aliceblue;
+  border: none;
+  margin-left: 10px;
+  border-radius: 20px;
+}

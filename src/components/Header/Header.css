@@ -1,0 +1,57 @@
+.header {
+  display: flex;
+  align-items: center;
+  padding: 10px 0 10px;
+  background-color: aliceblue;
+  border-radius: 50px;
+}
+
+.header__logo {
+  height: 40px;
+  width: 89px;
+  background-color: aliceblue;
+  margin-left: 20px;
+}
+
+.header__options {
+  display: flex;
+  font-size: 15px;
+}
+
+.header__avatar {
+  width: 15px;
+}
+.header__button {
+  margin-left: auto;
+}
+
+.header__signup-btn {
+  background-color: aliceblue;
+
+  border: none;
+}
+.header__signup-btn:hover {
+  background-color: rgb(123, 247, 206);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.header__login-btn {
+  background-color: aliceblue;
+  border: none;
+  margin-right: 20px;
+}
+
+.header__login-btn:hover {
+  background-color: rgb(123, 247, 206);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.header__user-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 15px;
+  margin-right: 20px;
+}

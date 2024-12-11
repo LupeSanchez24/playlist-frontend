@@ -1,0 +1,59 @@
+.sidebar {
+  color: aliceblue;
+}
+
+.sidebar__user {
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+}
+
+.sidebar__user_username {
+  margin-left: 10px;
+  font-size: 15px;
+}
+
+.sidebar__user_avatar {
+  border-radius: 50%;
+}
+
+.sidebar__options {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+}
+
+.sidebar__options_like {
+  margin-right: 20px;
+  margin-bottom: 0;
+  font-size: 15px;
+}
+
+.sidebar__options_like:hover {
+  background-color: rgb(123, 247, 206);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.sidebar__options_bookmark {
+  margin-right: 20px;
+  margin-bottom: 0;
+  margin-top: 10px;
+  font-size: 15px;
+}
+
+.sidebar__options_bookmark:hover {
+  background-color: rgb(123, 247, 206);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.sidebar__options_logout {
+  margin-top: 10px;
+  font-size: 15px;
+}
+.sidebar__options_logout:hover {
+  background-color: rgb(123, 247, 206);
+  border-radius: 5px;
+  cursor: pointer;
+}
