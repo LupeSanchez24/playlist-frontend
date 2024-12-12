@@ -13,21 +13,17 @@
   margin-left: 20px;
 }
 
-.header__options {
-  display: flex;
-  font-size: 15px;
-}
-
 .header__avatar {
   width: 15px;
 }
 .header__button {
+  font-family: roboto, Arial, Helvetica, sans-serif;
+  font-weight: 500;
   margin-left: auto;
 }
 
 .header__signup-btn {
   background-color: aliceblue;
-
   border: none;
 }
 .header__signup-btn:hover {
@@ -49,6 +45,8 @@
 }
 
 .header__user-container {
+  font-family: roboto, Arial, Helvetica, sans-serif;
+  font-weight: 500;
   display: flex;
   align-items: center;
   gap: 12px;

@@ -9,10 +9,8 @@ function Profile() {
       <section className="profile__sidebar">
         <SideBar />
       </section>
-      <section className="profile__search">
+      <section className="profile__main">
         <ProfileSearch />
-      </section>
-      <section className="profile__profileAlbum">
         <ProfileAlbum />
       </section>
     </div>

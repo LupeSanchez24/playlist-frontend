@@ -1,5 +1,9 @@
+@import url(../../vendor/fonts.css);
+
 .page {
   background-color: rgb(40, 39, 39);
+  font-family: inter, Arial, Helvetica, sans-serif;
+  font-size: 15px;
 }
 
 .page__content {
