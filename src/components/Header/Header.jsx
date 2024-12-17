@@ -2,17 +2,25 @@ import home from "../../assets/home.svg";
 import user from "../../assets/user-image.svg";
 import { Link } from "react-router-dom";
 import "./Header.css";
-function Header() {
+function Header({ handleSignUpClick, handleLogInClick }) {
   return (
     <header className="header">
       <Link to="/">
         <img className="header__logo" src={home} alt="home logo" />
       </Link>
       <div className="header__button">
-        <button type="button" className="header__signup-btn">
+        <button
+          type="button"
+          className="header__signup-btn"
+          onClick={handleSignUpClick}
+        >
           SignUp
         </button>
-        <button type="button" className="header__login-btn">
+        <button
+          type="button"
+          className="header__login-btn"
+          onClick={handleLogInClick}
+        >
           Log In
         </button>
       </div>
