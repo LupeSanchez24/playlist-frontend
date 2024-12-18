@@ -22,11 +22,15 @@
   flex-direction: column;
   margin-left: 20px;
 }
+.sidebar__options a {
+  text-decoration: none;
+}
 
 .sidebar__options_like {
   margin-right: 20px;
   margin-bottom: 0;
   font-size: 15px;
+  color: #fff;
 }
 
 .sidebar__options_like:hover {

@@ -9,6 +9,13 @@
   margin-left: 20px;
   margin-top: 20px;
 }
+.album__bookmark {
+  background-color: #fff;
+  border-radius: 15px;
+  position: absolute;
+  margin-left: 120px;
+  margin-top: 4px;
+}
 
 .album__description {
   display: flex;

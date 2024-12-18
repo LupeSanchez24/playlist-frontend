@@ -8,6 +8,7 @@ import Footer from "../Footer/Footer";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import SignUpModal from "../SignupModal/SignUpModal";
 import LogInModal from "../LogInModal/LogInModal";
+import Bookmark from "../Bookmark/Bookmark";
 
 function App() {
   const [activeModal, setActiveModal] = useState("");
@@ -47,6 +48,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/bookmark-page" element={<Bookmark />} />
         </Routes>
 
         <Footer />

@@ -1,5 +1,6 @@
 import user from "../../assets/user-image.svg";
 import "./SideBar.css";
+import { Link } from "react-router-dom";
 
 function SideBar() {
   return (
@@ -10,8 +11,9 @@ function SideBar() {
       </div>
 
       <div className="sidebar__options">
-        <p className="sidebar__options_like">Liked Albums</p>
-        <p className="sidebar__options_bookmark">Bookmark</p>
+        <Link to="/bookmark-page">
+          <p className="sidebar__options_like">Bookmark Albums</p>
+        </Link>
         <p className="sidebar__options_logout">Log out</p>
       </div>
     </div>
