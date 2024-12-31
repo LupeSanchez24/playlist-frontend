@@ -1,55 +1,42 @@
 import { useState, useEffect } from "react";
-
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import "../LoginModal/LoginModal.css";
-
 const LogInModal = ({ closeActiveModal, isOpen }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [data, setData] = useState("");
-
   const [errors, setErrors] = useState({
     email: "",
     password: "",
   });
-
   const validateForm = () => {
     let isValid = true;
     let errors = {
       email: "",
       password: "",
     };
-
     if (!email) {
       errors.email = "Email is required.";
       isValid = false;
     }
-
     if (!password) {
       errors.password = "Password is required.";
       isValid = false;
     }
-
     setErrors(errors);
-
     return isValid;
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-
     if (validateForm()) {
-      handleLogin({ email, password });
+      handlelogin({ email, password });
     }
   };
-
   const handlePasswordChange = (e) => setPassword(e.target.value);
   const handleEmailchange = (e) => setEmail(e.target.value);
-
   useEffect(() => {
     setData({ email: "", password: "" });
   }, [isOpen]);
-
   return (
     <ModalWithForm
       title="Log In"
@@ -91,5 +78,4 @@ const LogInModal = ({ closeActiveModal, isOpen }) => {
     </ModalWithForm>
   );
 };
-
 export default LogInModal;

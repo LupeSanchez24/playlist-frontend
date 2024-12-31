@@ -7,7 +7,7 @@ const SignUpModal = ({ closeActiveModal, isOpen }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [avatarUrl, setAvatarUrl] = useState("");
+  //const [avatarUrl, setAvatarUrl] = useState("");
   const [data, setData] = useState("");
 
   const [errors, setErrors] = useState({
@@ -31,14 +31,6 @@ const SignUpModal = ({ closeActiveModal, isOpen }) => {
       isValid = false;
     }
 
-    if (!avatarUrl) {
-      errors.avatarUrl = "Image URL is required.";
-      isValid = false;
-    } else if (!/^https?:\/\/.+/.test(avatarUrl)) {
-      errors.avatarUrl = "Invalid URL format.";
-      isValid = false;
-    }
-
     if (!password) {
       errors.password = "Password is required.";
       isValid = false;
@@ -57,7 +49,7 @@ const SignUpModal = ({ closeActiveModal, isOpen }) => {
     e.preventDefault();
 
     if (validateForm()) {
-      handleRegistration({ name, email, avatar: avatarUrl, password });
+      handleRegistration({ name, email, password });
     }
   };
 
@@ -66,7 +58,7 @@ const SignUpModal = ({ closeActiveModal, isOpen }) => {
   }, [isOpen]);
 
   const handleNameChange = (e) => setName(e.target.value);
-  const handleUrlChange = (e) => setAvatarUrl(e.target.value);
+  //const handleUrlChange = (e) => setAvatarUrl(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
   const handleEmailchange = (e) => setEmail(e.target.value);
 
@@ -122,22 +114,6 @@ const SignUpModal = ({ closeActiveModal, isOpen }) => {
           onChange={handleNameChange}
         ></input>
         {errors.name && <span className="modal__error ">{errors.name}</span>}
-      </label>
-      <label htmlFor="avatarUrl" className="modal__label">
-        Avatar URL *
-        <input
-          type="url"
-          className={`modal__input modal__input_signup ${
-            errors.avatarUrl ? "modal__input_error" : ""
-          }`}
-          id="avatarUrl"
-          placeholder="Avatar URL"
-          value={avatarUrl}
-          onChange={handleUrlChange}
-        ></input>
-        {errors.avatarUrl && (
-          <span className="modal__error  ">{errors.avatarUrl}</span>
-        )}
       </label>
     </ModalWithForm>
   );

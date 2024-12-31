@@ -1,31 +1,61 @@
+import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 import "./Bookmark.css";
 import bookmarkPageImage from "../../assets/bookmark-page.jpg";
-import image from "../../assets/song-picture.jpg";
-import unlike from "../../assets/unlike.svg";
-import unbookmark from "../../assets/bookmark.svg";
+import { getSavedAlbums } from "../../utils/SpotifyApi";
 
-const bookmark = () => {
+const bookmark = ({ accessToken }) => {
+  //const [albumIds, setAlbumIds] = useState("");
+  const [albumData, setAlbumData] = useState([]);
+
+  //  saved albums from Spotify account
+  useEffect(() => {
+    const fetchAlbums = async () => {
+      if (accessToken) {
+        try {
+          const albums = await getSavedAlbums(accessToken);
+          setAlbumData(albums);
+        } catch (error) {
+          console.error("Error fetching saved albums:", error);
+        }
+      }
+    };
+
+    fetchAlbums();
+  }, [accessToken]);
+
+  useEffect(() => {
+    if (!accessToken) {
+      console.log("No access token available");
+      return;
+    }
+
+    console.log("Access token in Bookmark:", accessToken);
+  }, [accessToken]);
+
   return (
     <div className="bookmark">
-      <img
-        className="bookmark__image"
-        src={bookmarkPageImage}
-        alt="Image of the bookmark page"
-      />
+      <Link to="/callback">
+        <img
+          className="bookmark__image"
+          src={bookmarkPageImage}
+          alt="Image of the bookmark page"
+        />
+      </Link>
       <h2 className="bookmark__title">Bookmark Albums</h2>
       <div className="bookmark__card">
-        <li className="card">
-          <img className="card__image" src={image} alt="song image" />
-          <img
-            className="card__bookmark"
-            src={unbookmark}
-            alt="bookmark image"
-          />
-          <div className="card__description">
-            <h2 className="card__name"> Album Name</h2>
-            <img className="card__like-btn" src={unlike} alt="" />
-          </div>
-        </li>
+        {albumData.length > 0 ? (
+          albumData.map((album) => (
+            <li key={album.id} className="card">
+              <img className="card__image" src={album.image} alt={album.name} />
+              <div className="card__description">
+                <h2 className="card__name">{album.name}</h2>
+              </div>
+            </li>
+          ))
+        ) : (
+          <p>No albums found.</p>
+        )}
       </div>
     </div>
   );

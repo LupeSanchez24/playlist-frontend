@@ -6,7 +6,7 @@
   border-radius: 50px;
 }
 
-.header__logo {
+.header__home {
   height: 40px;
   width: 89px;
   background-color: aliceblue;
@@ -22,34 +22,26 @@
   margin-left: auto;
 }
 
-.header__signup-btn {
+.header__spotify-btn {
   background-color: aliceblue;
   border: none;
+  margin-right: 50px;
 }
-.header__signup-btn:hover {
+
+.header__spotify-btn:hover {
   background-color: rgb(123, 247, 206);
   border-radius: 5px;
   cursor: pointer;
 }
 
-.header__login-btn {
+.header__logout-btn {
   background-color: aliceblue;
   border: none;
-  margin-right: 20px;
+  margin-right: 50px;
 }
 
-.header__login-btn:hover {
+.header__logout-btn:hover {
   background-color: rgb(123, 247, 206);
   border-radius: 5px;
   cursor: pointer;
-}
-
-.header__user-container {
-  font-family: roboto, Arial, Helvetica, sans-serif;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 15px;
-  margin-right: 20px;
 }

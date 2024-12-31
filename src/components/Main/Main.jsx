@@ -1,37 +1,32 @@
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import "./Main.css";
-import CardAlbum from "../CardAlbum/CardAlbum";
+import homepage from "../../assets/homepage.jpg";
+//import { Link } from "react-router-dom";
+//import { AuthContext } from "../../contexts/spotifyContext";
 
 function Main() {
-  const [searchInput, setSearchInput] = useState("");
+  const [greeting, setGreeting] = useState("");
+  //const { isLoggedIn, accessToken } = useContext(AuthContext);
 
-  const handleChange = (e) => {
-    setSearchInput(e.target.value);
-  };
+  useEffect(() => {
+    const getGreeting = () => {
+      const currentHour = new Date().getHours();
+
+      if (currentHour < 12) {
+        return "good morning";
+      } else if (currentHour < 18) {
+        return "good afternoon";
+      } else {
+        return "good evening";
+      }
+    };
+
+    setGreeting(getGreeting());
+  }, []);
   return (
     <main>
-      <label className="input" htmlFor="myInput">
-        Search :
-        <input
-          type="text"
-          id="myInput"
-          className="input__search"
-          value={searchInput}
-          onChange={handleChange}
-          placeholder="Search Artist"
-        />
-        <button
-          className="input__button"
-          onClick={() => {
-            console.log("Clicked Button");
-          }}
-        >
-          Search
-        </button>
-      </label>
-      <section>
-        <CardAlbum />
-      </section>
+      <div className="main__title">Hello, {greeting} !</div>
+      <img className="main__image" alt="homepage image" src={homepage} />
     </main>
   );
 }

@@ -1,35 +1,49 @@
+import { useEffect, useState, useContext } from "react";
 import home from "../../assets/home.svg";
-import user from "../../assets/user-image.svg";
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 import "./Header.css";
-function Header({ handleSignUpClick, handleLogInClick }) {
+import { AuthContext } from "../../contexts/spotifyContext";
+
+function Header({ handleSpotifyLogin, handleLogout }) {
+  const { isLoggedIn } = useContext(AuthContext);
   return (
     <header className="header">
-      <Link to="/">
-        <img className="header__logo" src={home} alt="home logo" />
-      </Link>
+      <img className="header__home" src={home} alt="home logo" />
       <div className="header__button">
-        <button
-          type="button"
-          className="header__signup-btn"
-          onClick={handleSignUpClick}
-        >
-          SignUp
-        </button>
-        <button
-          type="button"
-          className="header__login-btn"
-          onClick={handleLogInClick}
-        >
-          Log In
-        </button>
-      </div>
+        {/*   {isLoggedIn ? (
+          <>
+            <button
+              type="button"
+              className="header__spotify-btn"
+              onClick={handleSpotifyLogin}
+            >
+              Login with Spotify
+            </button>
+          </>
+        ) : (
+          <button
+            type="button"
+            className="header__logout-btn"
+            onClick={handleLogout}
+          >
+            Log out
+        </button> 
+        )} */}
 
-      <div className="header__user-container">
-        <Link to="/profile">
-          <img src={user} alt="user image" className="header__avatar" />
-        </Link>
-        <p className="header__username">user name</p>
+        <button
+          type="button"
+          className="header__spotify-btn"
+          onClick={handleSpotifyLogin}
+        >
+          Login with Spotify
+        </button>
+        <button
+          type="button"
+          className="header__logout-btn"
+          onClick={handleLogout}
+        >
+          Log out
+        </button>
       </div>
     </header>
   );

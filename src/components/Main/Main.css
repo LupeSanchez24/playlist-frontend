@@ -1,19 +1,31 @@
-.input {
+.main__title {
+  font-family: roboto, Arial, Helvetica, sans-serif;
+  font-weight: 500;
   color: #fff;
-  margin-left: 10px;
+  font-size: 40px;
+  margin-top: 30px;
+  margin-left: 50px;
+  position: absolute;
+  z-index: 2;
 }
 
-.input__search {
-  margin-top: 20px;
-  margin-left: 10px;
-  background-color: aliceblue;
-  border: none;
-  border-radius: 20px;
+.main__description {
+  font-family: roboto, Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  color: #fff;
+  font-size: 34px;
+  margin-top: 30px;
+  margin-left: 50px;
+  z-index: 2;
+  position: absolute;
+  margin-top: 100px;
 }
 
-.input__button {
-  background-color: aliceblue;
-  border: none;
-  margin-left: 10px;
+.main__image {
+  width: 1300px;
+  height: 600px;
+  z-index: 1;
+  position: relative;
   border-radius: 20px;
+  margin-left: 30px;
 }
