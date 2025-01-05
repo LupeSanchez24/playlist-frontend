@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import "./SideBar.css";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../contexts/spotifyContext";
 
 function SideBar() {
   const [accessToken, setAccessToken] = useState(null);
@@ -9,24 +10,14 @@ function SideBar() {
     display_name: "",
     images: [],
   });
-  const navigate = useNavigate();
-
-  /*const handleLogout = () => {
-    localStorage.removeItem("spotify_access_token");
-    localStorage.removeItem("spotify_refresh_token");
-    setAccessToken(null);
-    setUserData(null);
-    navigate("/");
-  };*/
 
   useEffect(() => {
-    const token = localStorage.getItem("spotify_access_token");
-    setAccessToken(token);
-
-    if (token) {
+    const accessToken = localStorage.getItem("spotify_access_token");
+    console.log(accessToken);
+    if (accessToken) {
       fetch("https://api.spotify.com/v1/me", {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${accessToken}`,
         },
       })
         .then((res) => res.json())
@@ -37,10 +28,8 @@ function SideBar() {
           });
         })
         .catch((err) => console.error("Error fetching user data:", err));
-    } else {
-      console.log("No access token found");
     }
-  }, []);
+  }, [accessToken]);
 
   return (
     <div className="sidebar">

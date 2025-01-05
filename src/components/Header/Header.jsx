@@ -10,40 +10,25 @@ function Header({ handleSpotifyLogin, handleLogout }) {
     <header className="header">
       <img className="header__home" src={home} alt="home logo" />
       <div className="header__button">
-        {/*   {isLoggedIn ? (
+        {isLoggedIn ? (
           <>
             <button
               type="button"
-              className="header__spotify-btn"
-              onClick={handleSpotifyLogin}
+              className="header__logout-btn"
+              onClick={handleLogout}
             >
-              Login with Spotify
+              Log out
             </button>
           </>
         ) : (
           <button
             type="button"
-            className="header__logout-btn"
-            onClick={handleLogout}
+            className="header__spotify-btn"
+            onClick={handleSpotifyLogin}
           >
-            Log out
-        </button> 
-        )} */}
-
-        <button
-          type="button"
-          className="header__spotify-btn"
-          onClick={handleSpotifyLogin}
-        >
-          Login with Spotify
-        </button>
-        <button
-          type="button"
-          className="header__logout-btn"
-          onClick={handleLogout}
-        >
-          Log out
-        </button>
+            Login with Spotify
+          </button>
+        )}
       </div>
     </header>
   );

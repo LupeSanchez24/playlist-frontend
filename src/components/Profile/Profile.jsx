@@ -14,7 +14,6 @@ function Profile() {
     try {
       const accessToken = localStorage.getItem("spotify_access_token");
 
-      // Make the API request to search for albums
       const response = await fetch(
         `https://api.spotify.com/v1/search?type=album&q=${encodeURIComponent(
           searchInput
@@ -28,7 +27,7 @@ function Profile() {
 
       if (response.ok) {
         const data = await response.json();
-        setAlbums(data.albums.items); // Store album search results
+        setAlbums(data.albums.items);
       } else {
         console.error("Error fetching album data:", response.status);
       }

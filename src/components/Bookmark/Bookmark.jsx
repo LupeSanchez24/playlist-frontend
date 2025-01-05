@@ -11,6 +11,7 @@ const bookmark = ({ accessToken }) => {
   //  saved albums from Spotify account
   useEffect(() => {
     const fetchAlbums = async () => {
+      const accessToken = localStorage.getItem("spotify_access_token");
       if (accessToken) {
         try {
           const albums = await getSavedAlbums(accessToken);

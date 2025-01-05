@@ -1,12 +1,9 @@
 import { useState, useEffect, useContext } from "react";
 import "./Main.css";
 import homepage from "../../assets/homepage.jpg";
-//import { Link } from "react-router-dom";
-//import { AuthContext } from "../../contexts/spotifyContext";
 
 function Main() {
   const [greeting, setGreeting] = useState("");
-  //const { isLoggedIn, accessToken } = useContext(AuthContext);
 
   useEffect(() => {
     const getGreeting = () => {
