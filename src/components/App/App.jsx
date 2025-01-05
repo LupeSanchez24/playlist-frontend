@@ -35,6 +35,7 @@ function App() {
     const hashBuffer = await window.crypto.subtle.digest("SHA-256", data);
     const hashArray = new Uint8Array(hashBuffer);
     return base64UrlEncode(hashArray);
+    // code_challenge_method: 'S256',
   };
 
   const base64UrlEncode = (array) => {
@@ -51,7 +52,9 @@ function App() {
     localStorage.setItem("code_verifier", codeVerifier);
 
     const clientId = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
-    const redirectUri = encodeURIComponent("http://localhost:3000/callback");
+    const redirectUri = encodeURIComponent(
+      "https://LupeSanchez24.github.io/playlist-frontend/callback"
+    );
     const scope = "user-library-read user-library-modify";
 
     const authUrl = `https://accounts.spotify.com/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&code_challenge=${codeChallenge}&code_challenge_method=S256`;

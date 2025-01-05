@@ -13,7 +13,8 @@ export const getToken = (authorizationCode) => {
       client_id: clientId,
       grant_type: "authorization_code",
       code: authorizationCode,
-      redirect_uri: "http://localhost:3000/callback",
+      redirect_uri:
+        "https://LupeSanchez24.github.io/playlist-frontend/callback",
       code_verifier: codeVerifier,
     }),
   };

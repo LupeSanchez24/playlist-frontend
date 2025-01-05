@@ -1,5 +1,9 @@
 # React + Vite
 
+About the Project
+
+This is a custom project where spotify API is use where a user with a spotify account can login and see their save albums and search for albums.
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
