@@ -2,7 +2,7 @@
 
 About the Project
 
-This is a custom project where spotify API is use where a user with a spotify account can login and see their save albums and search for albums.
+This is a custom project that uses Spotify API. A user with a Spotify account can log in, see their saved albums, and search for albums.
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 

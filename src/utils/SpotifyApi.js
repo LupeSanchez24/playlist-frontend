@@ -3,6 +3,11 @@ export const getToken = (authorizationCode) => {
   const codeVerifier = localStorage.getItem("code_verifier");
 
   const clientId = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
+  const redirectUri = encodeURIComponent(
+    process.env.NODE_ENV === "production"
+      ? "https://lupesanchez24.github.io/playlist-frontend/callback"
+      : "http://localhost:3000/callback"
+  );
 
   const payload = {
     method: "POST",
@@ -13,8 +18,7 @@ export const getToken = (authorizationCode) => {
       client_id: clientId,
       grant_type: "authorization_code",
       code: authorizationCode,
-      redirect_uri:
-        "https://LupeSanchez24.github.io/playlist-frontend/callback",
+      redirect_uri: redirectUri,
       code_verifier: codeVerifier,
     }),
   };

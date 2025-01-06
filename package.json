@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "proxy": "https://api.spotify.com",
-  "homepage": "https://LupeSanchez24.github.io/playlist-frontend",
+  "homepage": "https://lupesanchez24.github.io/playlist-frontend",
   "type": "module",
   "scripts": {
     "dev": "vite --open",
@@ -11,7 +11,7 @@
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d build -b stage-1-frontend-api"
   },
   "dependencies": {
     "buffer": "^6.0.3",

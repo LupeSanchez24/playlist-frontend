@@ -21,6 +21,7 @@ function App() {
   const [userData, setUserData] = useState(null);
   const navigate = useNavigate();
 
+  // Generate a random string for the code_verifier
   const generateRandomString = (length) => {
     const possible =
       "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -35,30 +36,36 @@ function App() {
     const hashBuffer = await window.crypto.subtle.digest("SHA-256", data);
     const hashArray = new Uint8Array(hashBuffer);
     return base64UrlEncode(hashArray);
-    // code_challenge_method: 'S256',
   };
 
+  // Base64 URL Encoding function
   const base64UrlEncode = (array) => {
     return btoa(String.fromCharCode.apply(null, array))
-      .replace(/\+/g, "-")
-      .replace(/\//g, "_")
-      .replace(/=+$/, "");
+      .replace(/\+/g, "-") // Replace "+" with "-"
+      .replace(/\//g, "_") // Replace "/" with "_"
+      .replace(/=+$/, ""); // Remove any trailing "=" padding
   };
 
   const handleSpotifyLogin = async () => {
-    const codeVerifier = generateRandomString(64);
-    const codeChallenge = await generateCodeChallenge(codeVerifier);
+    const codeVerifier = generateRandomString(64); // Generate a random code_verifier
+    const codeChallenge = await generateCodeChallenge(codeVerifier); // Generate code_challenge
 
+    // Store the code_verifier for later use (for token exchange)
     localStorage.setItem("code_verifier", codeVerifier);
 
     const clientId = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
+    // const redirectUri = encodeURIComponent("http://localhost:3000/callback");
     const redirectUri = encodeURIComponent(
-      "https://LupeSanchez24.github.io/playlist-frontend/callback"
+      process.env.NODE_ENV === "production"
+        ? "https://lupesanchez24.github.io/playlist-frontend/callback"
+        : "http://localhost:3000/callback"
     );
     const scope = "user-library-read user-library-modify";
 
+    // Build the authorization URL
     const authUrl = `https://accounts.spotify.com/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&code_challenge=${codeChallenge}&code_challenge_method=S256`;
 
+    // Redirect the user to Spotify's authorization page
     window.location.href = authUrl;
     setIsLoggedIn(true);
   };
@@ -129,7 +136,7 @@ function App() {
             handleSpotifyLogin={handleSpotifyLogin}
           />
           <Routes>
-            <Route path="/" element={<Main />} />
+            <Route path="/playlist-frontend" element={<Main />} />
             <Route
               path="/callback"
               element={<Profile accessToken={accessToken} />}
