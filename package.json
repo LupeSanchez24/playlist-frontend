@@ -3,7 +3,6 @@
   "private": true,
   "version": "0.0.0",
   "proxy": "https://api.spotify.com",
-  "homepage": "https://lupesanchez24.github.io/playlist-frontend",
   "type": "module",
   "scripts": {
     "dev": "vite --open",
@@ -13,6 +12,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build -b stage-1-frontend-api"
   },
+  "homepage": "https://lupesanchez24.github.io/playlist-frontend",
   "dependencies": {
     "buffer": "^6.0.3",
     "react": "^18.3.1",

@@ -25,14 +25,14 @@ const bookmark = ({ accessToken }) => {
     fetchAlbums();
   }, [accessToken]);
 
-  useEffect(() => {
+  /*useEffect(() => {
     if (!accessToken) {
       console.log("No access token available");
       return;
     }
 
     console.log("Access token in Bookmark:", accessToken);
-  }, [accessToken]);
+  }, [accessToken]);*/
 
   return (
     <div className="bookmark">

@@ -1,101 +1,100 @@
-//token
-export const getToken = (authorizationCode) => {
-  const codeVerifier = localStorage.getItem("code_verifier");
+//gettoken
 
-  const clientId = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
-  const redirectUri = encodeURIComponent(
-    process.env.NODE_ENV === "production"
-      ? "https://lupesanchez24.github.io/playlist-frontend/callback"
-      : "http://localhost:3000/callback"
-  );
+export const getToken = async (authorizationCode) => {
+  try {
+    const codeVerifier = localStorage.getItem("code_verifier");
+    const client_id = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
+    const redirectUri =
+      import.meta.env.MODE === "production"
+        ? "https://lupesanchez24.github.io/playlist-frontend/callback"
+        : "http://localhost:3000/callback";
 
-  const payload = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body: new URLSearchParams({
-      client_id: clientId,
-      grant_type: "authorization_code",
-      code: authorizationCode,
-      redirect_uri: redirectUri,
-      code_verifier: codeVerifier,
-    }),
-  };
+    const payload = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: new URLSearchParams({
+        client_id: client_id,
+        grant_type: "authorization_code",
+        code: authorizationCode,
+        redirect_uri: redirectUri,
+        code_verifier: codeVerifier,
+      }),
+    };
 
-  return fetch("https://accounts.spotify.com/api/token", payload)
-    .then((res) => res.json())
-    .then((data) => {
-      if (data.access_token) {
-        localStorage.setItem("spotify_access_token", data.access_token);
-        localStorage.setItem("spotify_refresh_token", data.refresh_token);
-        localStorage.setItem(
-          "spotify_token_expiration",
-          Date.now() / 1000 + 3600
-        );
+    const response = await fetch(
+      "https://accounts.spotify.com/api/token",
+      payload
+    );
+    const data = await response.json();
 
-        return data.access_token;
-      }
-    })
-    .catch((error) => {
-      console.error("Error exchanging code for token:", error);
-    });
-};
+    if (data.access_token) {
+      localStorage.setItem("spotify_access_token", data.access_token);
+      localStorage.setItem("spotify_refresh_token", data.refresh_token);
+      localStorage.setItem(
+        "spotify_token_expiration",
+        Date.now() / 1000 + 3600
+      );
 
-//access token
-export const getAccessToken = () => {
-  const accessToken = localStorage.getItem("spotify_access_token");
-
-  if (accessToken) {
-    return accessToken;
-  } else {
-    console.log("No access token found in localStorage");
+      return data.access_token;
+    } else {
+      console.error("Failed to get access token: ", data);
+      return null;
+    }
+  } catch (error) {
+    console.error("Error exchanging code for token:", error);
+    return null;
   }
-  return null;
 };
 
 //refresh token
-export const refreshAccessToken = () => {
+
+export const refreshAccessToken = async () => {
   const refreshToken = localStorage.getItem("spotify_refresh_token");
+  const clientId = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
+  const redirectUri =
+    import.meta.env.MODE === "production"
+      ? "https://lupesanchez24.github.io/playlist-frontend/callback"
+      : "http://localhost:3000/callback";
 
   if (!refreshToken) {
     console.error("No refresh token available");
-    return;
+    return null;
   }
 
-  const body = new URLSearchParams();
-  body.append("grant_type", "refresh_token");
-  body.append("refresh_token", refreshToken);
-  const client_id = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
-  const client_secret = import.meta.env.VITE_SPOTIFY_CLIENT_SECRET;
-
-  return fetch("https://accounts.spotify.com/api/token", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-      Authorization: "Basic " + btoa(client_id + ":" + client_secret),
-    },
-    body: body.toString(),
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      if (data.access_token) {
-        // Save the new access token and refresh token
-        localStorage.setItem("spotify_access_token", data.access_token);
-        localStorage.setItem("spotify_refresh_token", data.refresh_token);
-
-        const expirationTime = Date.now() / 1000 + 3600;
-        localStorage.setItem("spotify_token_expiration", expirationTime);
-
-        // console.log("Refreshed Access Token:", data.access_token);
-        return data.access_token;
-      } else {
-        console.error("Error refreshing access token", data);
-      }
-    })
-    .catch((err) => {
-      console.error("Error refreshing token:", err);
+  try {
+    const response = await fetch("https://accounts.spotify.com/api/token", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: new URLSearchParams({
+        grant_type: "refresh_token",
+        refresh_token: refreshToken,
+        client_id: clientId,
+        redirect_uri: encodeURIComponent(redirectUri),
+      }),
     });
+
+    const data = await response.json();
+
+    if (data.access_token) {
+      localStorage.setItem("spotify_access_token", data.access_token);
+      localStorage.setItem(
+        "spotify_token_expiration",
+        Date.now() + data.expires_in * 1000
+      );
+      console.log("Access token refreshed:", data.access_token);
+      return data.access_token;
+    } else {
+      console.error("Failed to refresh access token:", data);
+      return null;
+    }
+  } catch (error) {
+    console.error("Error refreshing token:", error);
+    return null;
+  }
 };
 
 // profile user data from spotify account

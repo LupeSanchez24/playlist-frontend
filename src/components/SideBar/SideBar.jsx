@@ -5,14 +5,14 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../contexts/spotifyContext";
 
 function SideBar() {
-  const [accessToken, setAccessToken] = useState(null);
+  //const [accessToken, setAccessToken] = useState(null);
   const [userData, setUserData] = useState({
     display_name: "",
     images: [],
   });
-
+  const accessToken = localStorage.getItem("spotify_access_token");
   useEffect(() => {
-    const accessToken = localStorage.getItem("spotify_access_token");
+    // const accessToken = localStorage.getItem("spotify_access_token");
     console.log(accessToken);
     if (accessToken) {
       fetch("https://api.spotify.com/v1/me", {

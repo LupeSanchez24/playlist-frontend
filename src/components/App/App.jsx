@@ -1,5 +1,10 @@
 import { useState, useEffect } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import {
+  HashRouter as Router,
+  Routes,
+  Route,
+  useNavigate,
+} from "react-router-dom";
 import "./App.css";
 import Header from "../Header/Header";
 import Profile from "../Profile/Profile";
@@ -7,11 +12,7 @@ import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
 import Bookmark from "../Bookmark/Bookmark";
 import { AuthContext } from "../../contexts/spotifyContext";
-import {
-  getAccessToken,
-  refreshAccessToken,
-  getToken,
-} from "../../utils/SpotifyApi";
+import { refreshAccessToken, getToken } from "../../utils/SpotifyApi";
 
 function App() {
   const [accessToken, setAccessToken] = useState(null);
@@ -41,42 +42,43 @@ function App() {
   // Base64 URL Encoding function
   const base64UrlEncode = (array) => {
     return btoa(String.fromCharCode.apply(null, array))
-      .replace(/\+/g, "-") // Replace "+" with "-"
-      .replace(/\//g, "_") // Replace "/" with "_"
-      .replace(/=+$/, ""); // Remove any trailing "=" padding
+      .replace(/\+/g, "-")
+      .replace(/\//g, "_")
+      .replace(/=+$/, "");
   };
 
   const handleSpotifyLogin = async () => {
-    const codeVerifier = generateRandomString(64); // Generate a random code_verifier
-    const codeChallenge = await generateCodeChallenge(codeVerifier); // Generate code_challenge
+    const codeVerifier = generateRandomString(64);
+    const codeChallenge = await generateCodeChallenge(codeVerifier);
 
-    // Store the code_verifier for later use (for token exchange)
     localStorage.setItem("code_verifier", codeVerifier);
 
-    const clientId = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
-    // const redirectUri = encodeURIComponent("http://localhost:3000/callback");
-    const redirectUri = encodeURIComponent(
-      process.env.NODE_ENV === "production"
-        ? "https://lupesanchez24.github.io/playlist-frontend/callback"
-        : "http://localhost:3000/callback"
-    );
+    const client_id = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
+
+    const redirectUri =
+      import.meta.env.MODE === "production"
+        ? "https://lupesanchez24.github.io/playlist-frontend/callback" // Production Redirect URI
+        : "http://localhost:3000/callback"; // Localhost Redirect URI
+
     const scope = "user-library-read user-library-modify";
 
-    // Build the authorization URL
-    const authUrl = `https://accounts.spotify.com/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&code_challenge=${codeChallenge}&code_challenge_method=S256`;
+    const authUrl = `https://accounts.spotify.com/authorize?response_type=code&client_id=${client_id}&redirect_uri=${redirectUri}&scope=${scope}&code_challenge=${codeChallenge}&code_challenge_method=S256`;
 
-    // Redirect the user to Spotify's authorization page
+    console.log("Redirect URI used:", redirectUri);
+
     window.location.href = authUrl;
+
     setIsLoggedIn(true);
   };
 
   const handleLogout = () => {
     localStorage.removeItem("spotify_access_token");
-    //localStorage.removeItem("spotify_access_token");
+    localStorage.removeItem("spotify_refresh_token");
+    localStorage.removeItem("spotify_token_expiration");
     setAccessToken(null);
     setIsLoggedIn(false);
     setUserData(null);
-    navigate("/");
+    window.location.href = "/";
   };
 
   // Handle the callback after user logs from spotify account
@@ -87,48 +89,34 @@ function App() {
     if (authorizationCode) {
       getToken(authorizationCode)
         .then((accessToken) => {
-          console.log("Access token received:", accessToken);
-
-          localStorage.setItem("spotify_access_token", accessToken);
+          if (accessToken) {
+            console.log("Access token received:", accessToken);
+            localStorage.setItem("spotify_access_token", accessToken);
+          }
         })
         .catch((error) => {
           console.error("Failed to get access token:", error);
         });
     }
-  }, [navigate]);
+  }, []);
 
+  //this is for access toeken
   useEffect(() => {
+    // Check for an existing token in localStorage on initial load
     const accessToken = localStorage.getItem("spotify_access_token");
     if (accessToken) {
       setAccessToken(accessToken);
       setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
     }
+    setLoading(false);
   }, []);
-
-  useEffect(() => {
-    getAccessToken();
-    refreshAccessToken();
-  });
-
-  useEffect(() => {
-    if (isLoggedIn) {
-      const token = getAccessToken();
-      if (token) {
-        fetch("https://api.spotify.com/v1/me", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-          .then((res) => res.json())
-          .catch((err) => console.error("Error fetching user data:", err));
-      }
-    }
-  }, [isLoggedIn]);
 
   return (
     <div className="page">
       <AuthContext.Provider
-        value={{ accessToken, setAccessToken, loading, isLoggedIn }}
+        value={{ accessToken, isLoggedIn, setIsLoggedIn, setAccessToken }}
       >
         <div className="page__content">
           <Header
@@ -136,7 +124,7 @@ function App() {
             handleSpotifyLogin={handleSpotifyLogin}
           />
           <Routes>
-            <Route path="/playlist-frontend" element={<Main />} />
+            <Route path="/" element={<Main />} />
             <Route
               path="/callback"
               element={<Profile accessToken={accessToken} />}
