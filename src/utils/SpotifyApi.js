@@ -6,8 +6,8 @@ export const getToken = async (authorizationCode) => {
     const client_id = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
     const redirectUri =
       import.meta.env.MODE === "production"
-        ? "https://lupesanchez24.github.io/playlist-frontend/callback"
-        : "http://localhost:3000/callback";
+        ? "https://lupesanchez24.github.io/playlist-frontend/#/callback"
+        : "http://localhost:3000/#/callback";
 
     const payload = {
       method: "POST",
@@ -55,8 +55,8 @@ export const refreshAccessToken = async () => {
   const clientId = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
   const redirectUri =
     import.meta.env.MODE === "production"
-      ? "https://lupesanchez24.github.io/playlist-frontend/callback"
-      : "http://localhost:3000/callback";
+      ? "https://lupesanchez24.github.io/playlist-frontend/#/callback"
+      : "http://localhost:3000/#/callback";
 
   if (!refreshToken) {
     console.error("No refresh token available");
@@ -73,7 +73,7 @@ export const refreshAccessToken = async () => {
         grant_type: "refresh_token",
         refresh_token: refreshToken,
         client_id: clientId,
-        redirect_uri: encodeURIComponent(redirectUri),
+        redirect_uri: redirectUri,
       }),
     });
 

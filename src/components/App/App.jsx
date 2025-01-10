@@ -55,20 +55,27 @@ function App() {
 
     const client_id = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
 
-    const redirectUri =
+    /* const redirectUri =
       import.meta.env.MODE === "production"
         ? "https://lupesanchez24.github.io/playlist-frontend/callback" // Production Redirect URI
-        : "http://localhost:3000/callback"; // Localhost Redirect URI
+        : "http://localhost:3000/callback"; // Localhost Redirect URI */
+
+    const redirectUri =
+      import.meta.env.MODE === "production"
+        ? "https://lupesanchez24.github.io/playlist-frontend/#/callback"
+        : "http://localhost:3000/#/callback";
 
     const scope = "user-library-read user-library-modify";
 
-    const authUrl = `https://accounts.spotify.com/authorize?response_type=code&client_id=${client_id}&redirect_uri=${redirectUri}&scope=${scope}&code_challenge=${codeChallenge}&code_challenge_method=S256`;
+    const authUrl = `https://accounts.spotify.com/authorize?response_type=code&client_id=${client_id}&redirect_uri=${encodeURIComponent(
+      redirectUri
+    )}&scope=${scope}&code_challenge=${codeChallenge}&code_challenge_method=S256`;
 
     console.log("Redirect URI used:", redirectUri);
 
     window.location.href = authUrl;
 
-    setIsLoggedIn(true);
+    //setIsLoggedIn(true);
   };
 
   const handleLogout = () => {
@@ -92,6 +99,9 @@ function App() {
           if (accessToken) {
             console.log("Access token received:", accessToken);
             localStorage.setItem("spotify_access_token", accessToken);
+            setAccessToken(accessToken); // Update the state for user data and routing
+            setIsLoggedIn(true);
+            navigate("/callback");
           }
         })
         .catch((error) => {
@@ -123,6 +133,7 @@ function App() {
             handleLogout={handleLogout}
             handleSpotifyLogin={handleSpotifyLogin}
           />
+
           <Routes>
             <Route path="/" element={<Main />} />
             <Route
