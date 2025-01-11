@@ -57,3 +57,12 @@
 .card__description {
   display: flex;
 }
+
+@media (max-width: 600px) {
+  .card {
+    width: 80px;
+  }
+  .card__name {
+    font-size: 8px;
+  }
+}

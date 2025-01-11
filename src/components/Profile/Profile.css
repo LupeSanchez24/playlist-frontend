@@ -90,3 +90,15 @@
   padding: 2px 12px;
   color: #fff;
 }
+
+@media (max-width: 600px) {
+  .profile__album_card {
+    width: 80px;
+  }
+  .profile__album_name {
+    font-size: 10px;
+  }
+  .profile__album_artist {
+    font-size: 10px;
+  }
+}
