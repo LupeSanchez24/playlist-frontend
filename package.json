@@ -10,7 +10,7 @@
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build -b stage-1-frontend-api"
+    "deploy": "gh-pages -d dist"
   },
   "homepage": "https://lupesanchez24.github.io/playlist-frontend",
   "dependencies": {
