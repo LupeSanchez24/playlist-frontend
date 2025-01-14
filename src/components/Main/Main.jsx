@@ -22,7 +22,7 @@ function Main() {
   }, []);
   return (
     <main>
-      <div className="main__title">Hello, {greeting} !</div>
+      <p className="main__title">Hello, {greeting} !</p>
       <img className="main__image" alt="homepage image" src={homepage} />
     </main>
   );

@@ -1,6 +1,7 @@
 import "./Profile.css";
 import SideBar from "../SideBar/SideBar";
 import { useState } from "react";
+import { searchAlbums } from "../../utils/SpotifyApi";
 
 function Profile() {
   const [searchInput, setSearchInput] = useState("");
@@ -9,40 +10,30 @@ function Profile() {
   const handleChange = (e) => {
     setSearchInput(e.target.value);
   };
+  const handleSearch = (event) => {
+    event.preventDefault();
 
-  const handleSearch = async () => {
-    try {
-      const accessToken = localStorage.getItem("spotify_access_token");
+    const accessToken = localStorage.getItem("spotify_access_token");
 
-      const response = await fetch(
-        `https://api.spotify.com/v1/search?type=album&q=${encodeURIComponent(
-          searchInput
-        )}`,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
-
-      if (response.ok) {
-        const data = await response.json();
-        setAlbums(data.albums.items);
-      } else {
-        console.error("Error fetching album data:", response.status);
-      }
-    } catch (error) {
-      console.error("Error searching albums:", error);
+    if (accessToken && searchInput.trim() !== "") {
+      searchAlbums(searchInput, accessToken)
+        .then((data) => {
+          setAlbums(data);
+        })
+        .catch((err) => {
+          console.error("Error fetching albums:", err);
+        });
     }
   };
+
   return (
     <div className="profile">
       <section className="profile__sidebar">
         <SideBar />
       </section>
       <div className="profile__search">
-        <label className="profile__search_input" htmlFor="myInput">
-          Search :
+        <form className="profile__search_input" onSubmit={handleSearch}>
+          <label htmlFor="myInput">Search:</label>
           <input
             type="text"
             id="myInput"
@@ -51,26 +42,28 @@ function Profile() {
             onChange={handleChange}
             placeholder="Search Album"
           />
-          <button className="profile__search_button" onClick={handleSearch}>
+          <button className="profile__search_button" type="submit">
             Search
           </button>
-        </label>
+        </form>
 
         <section className="profile__album">
           {albums.length > 0 ? (
             albums.map((album) => (
               <div key={album.id} className="profile__album_card">
                 <img
-                  src={album.images[0]?.url}
+                  src={album.images[0]?.url || "default-image-url.jpg"}
                   alt={album.name}
                   className="profile__album_image"
                 />
                 <p className="profile__album_name">{album.name}</p>
-                <p className="profile__album_artist">{album.artists[0].name}</p>
+                <p className="profile__album_artist">
+                  {album.artists[0]?.name || "Unknown Artist"}{" "}
+                </p>
               </div>
             ))
           ) : (
-            <p className="Profile__album_placeholder">
+            <p className="profile__album_placeholder">
               No albums to display at the moment. Try searching for some albums!
             </p>
           )}

@@ -12,7 +12,7 @@ import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
 import Bookmark from "../Bookmark/Bookmark";
 import { AuthContext } from "../../contexts/spotifyContext";
-import { refreshAccessToken, getToken } from "../../utils/SpotifyApi";
+import { getToken, APP_URL } from "../../utils/SpotifyApi";
 
 function App() {
   const [accessToken, setAccessToken] = useState(null);
@@ -48,34 +48,35 @@ function App() {
   };
 
   const handleSpotifyLogin = async () => {
-    const codeVerifier = generateRandomString(64);
-    const codeChallenge = await generateCodeChallenge(codeVerifier);
+    try {
+      const codeVerifier = generateRandomString(64);
+      const codeChallenge = await generateCodeChallenge(codeVerifier);
 
-    localStorage.setItem("code_verifier", codeVerifier);
+      localStorage.setItem("code_verifier", codeVerifier);
+      console.log(codeVerifier);
 
-    const client_id = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
+      const client_id = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
+      if (!client_id) {
+        throw new Error("Spotify Client ID is missing.");
+      }
 
-    /* const redirectUri =
-      import.meta.env.MODE === "production"
-        ? "https://lupesanchez24.github.io/playlist-frontend/callback" // Production Redirect URI
-        : "http://localhost:3000/callback"; // Localhost Redirect URI */
+      const redirectUri =
+        import.meta.env.MODE === "production"
+          ? `${APP_URL}/#/callback`
+          : "http://localhost:3000/#/callback";
 
-    const redirectUri =
-      import.meta.env.MODE === "production"
-        ? "https://lupesanchez24.github.io/playlist-frontend/#/callback"
-        : "http://localhost:3000/#/callback";
+      const scope = "user-library-read user-library-modify";
 
-    const scope = "user-library-read user-library-modify";
+      const authUrl = `https://accounts.spotify.com/authorize?response_type=code&client_id=${client_id}&redirect_uri=${encodeURIComponent(
+        redirectUri
+      )}&scope=${scope}&code_challenge=${codeChallenge}&code_challenge_method=S256`;
 
-    const authUrl = `https://accounts.spotify.com/authorize?response_type=code&client_id=${client_id}&redirect_uri=${encodeURIComponent(
-      redirectUri
-    )}&scope=${scope}&code_challenge=${codeChallenge}&code_challenge_method=S256`;
+      console.log("Redirect URI used:", redirectUri);
 
-    console.log("Redirect URI used:", redirectUri);
-
-    window.location.href = authUrl;
-
-    //setIsLoggedIn(true);
+      window.location.href = authUrl;
+    } catch (error) {
+      console.error("Error during Spotify login:", error);
+    }
   };
 
   const handleLogout = () => {
@@ -92,6 +93,7 @@ function App() {
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const authorizationCode = urlParams.get("code");
+    console.log("Authorization Code:", authorizationCode);
 
     if (authorizationCode) {
       getToken(authorizationCode)
@@ -111,16 +113,21 @@ function App() {
   }, []);
 
   //this is for access toeken
+
   useEffect(() => {
-    // Check for an existing token in localStorage on initial load
-    const accessToken = localStorage.getItem("spotify_access_token");
-    if (accessToken) {
-      setAccessToken(accessToken);
-      setIsLoggedIn(true);
-    } else {
-      setIsLoggedIn(false);
+    try {
+      const accessToken = localStorage.getItem("spotify_access_token");
+      if (accessToken) {
+        setAccessToken(accessToken);
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
+      }
+    } catch (error) {
+      console.error("Error accessing localStorage:", error);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   }, []);
 
   return (
@@ -136,14 +143,8 @@ function App() {
 
           <Routes>
             <Route path="/" element={<Main />} />
-            <Route
-              path="/callback"
-              element={<Profile accessToken={accessToken} />}
-            />
-            <Route
-              path="/bookmark-page"
-              element={<Bookmark accessToken={accessToken} />}
-            />
+            <Route path="/callback" element={<Profile />} />
+            <Route path="/bookmark-page" element={<Bookmark />} />
           </Routes>
 
           <Footer />
