@@ -28,14 +28,14 @@
   color: #fff;
 }
 
-.sidebar__option_bookmark {
+.sidebar__option-bookmark {
   margin-right: 20px;
   margin-bottom: 0;
   margin-top: 10px;
   font-size: 15px;
 }
 
-.sidebar__option_bookmark:hover {
+.sidebar__option-bookmark:hover {
   background-color: rgb(123, 247, 206);
   border-radius: 5px;
   cursor: pointer;

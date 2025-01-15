@@ -8,13 +8,13 @@ function Header({ handleSpotifyLogin, handleLogout }) {
   const { isLoggedIn } = useContext(AuthContext);
   return (
     <header className="header">
-      <img className="header__home" src={home} alt="home logo" />
+      <img className="header__image-home" src={home} alt="home logo" />
       <div className="header__button">
         {isLoggedIn ? (
           <>
             <button
               type="button"
-              className="header__logout-btn"
+              className="header__button-logout"
               onClick={handleLogout}
             >
               Log out
@@ -23,7 +23,7 @@ function Header({ handleSpotifyLogin, handleLogout }) {
         ) : (
           <button
             type="button"
-            className="header__spotify-btn"
+            className="header__button-login"
             onClick={handleSpotifyLogin}
           >
             Login with Spotify

@@ -39,7 +39,7 @@ function SideBar() {
       </div>
       <div className="sidebar__option">
         <Link to="/bookmark-page">
-          <p className="sidebar__option_bookmark">Bookmark Albums</p>
+          <p className="sidebar__option-bookmark">Bookmark Albums</p>
         </Link>
       </div>
     </div>

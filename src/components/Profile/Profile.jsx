@@ -32,17 +32,17 @@ function Profile() {
         <SideBar />
       </section>
       <div className="profile__search">
-        <form className="profile__search_input" onSubmit={handleSearch}>
+        <form className="profile__search-form" onSubmit={handleSearch}>
           <label htmlFor="myInput">Search:</label>
           <input
             type="text"
             id="myInput"
-            className="profile__search_album"
+            className="profile__search-input"
             value={searchInput}
             onChange={handleChange}
             placeholder="Search Album"
           />
-          <button className="profile__search_button" type="submit">
+          <button className="profile__search-submit" type="submit">
             Search
           </button>
         </form>
@@ -50,20 +50,20 @@ function Profile() {
         <section className="profile__album">
           {albums.length > 0 ? (
             albums.map((album) => (
-              <div key={album.id} className="profile__album_card">
+              <div key={album.id} className="profile__album-card">
                 <img
                   src={album.images[0]?.url || "default-image-url.jpg"}
                   alt={album.name}
-                  className="profile__album_image"
+                  className="profile__album-image"
                 />
-                <p className="profile__album_name">{album.name}</p>
-                <p className="profile__album_artist">
+                <p className="profile__album-name">{album.name}</p>
+                <p className="profile__album-artist">
                   {album.artists[0]?.name || "Unknown Artist"}{" "}
                 </p>
               </div>
             ))
           ) : (
-            <p className="profile__album_placeholder">
+            <p className="profile__album-placeholder">
               No albums to display at the moment. Try searching for some albums!
             </p>
           )}

@@ -8,12 +8,12 @@
   margin-left: 20px;
 }
 
-.profile__search_input {
+.profile__search-form {
   color: #fff;
   margin-left: 10px;
 }
 
-.profile__search_album {
+.profile__search-input {
   margin-top: 20px;
   margin-left: 10px;
   background-color: aliceblue;
@@ -21,7 +21,7 @@
   border-radius: 20px;
 }
 
-.profile__search_button {
+.profile__search-submit {
   background-color: aliceblue;
   border: none;
   margin-left: 10px;
@@ -39,7 +39,7 @@
   flex-wrap: wrap;
 }
 
-.profile__album_card {
+.profile__album-card {
   width: 150px;
   list-style-type: none;
   margin-left: 20px;
@@ -57,7 +57,7 @@
   display: flex;
 }
 
-.profile__album_name {
+.profile__album-name {
   font-family: roboto, Arial, Helvetica, sans-serif;
   font-weight: 500;
   top: 15px;
@@ -67,7 +67,7 @@
   margin-bottom: 2px;
 }
 
-.profile__album_artist {
+.profile__album-artist {
   font-family: roboto, Arial, Helvetica, sans-serif;
   font-weight: 500;
   top: 15px;
@@ -76,14 +76,14 @@
   font-size: 15px;
   margin-top: 2px;
 }
-.profile__album_image {
+.profile__album-image {
   width: 100%;
   border-radius: 19px;
   border: 1px solid;
   color: rgba(0, 0, 0, 0.3);
 }
 
-.profile__album_placeholder {
+.profile__album-placeholder {
   font-family: roboto, Arial, Helvetica, sans-serif;
   font-weight: 500;
   top: 10px;
@@ -92,13 +92,13 @@
 }
 
 @media (max-width: 600px) {
-  .profile__album_card {
+  .profile__album-card {
     width: 80px;
   }
-  .profile__album_name {
+  .profile__album-name {
     font-size: 10px;
   }
-  .profile__album_artist {
+  .profile__album-artist {
     font-size: 10px;
   }
 }

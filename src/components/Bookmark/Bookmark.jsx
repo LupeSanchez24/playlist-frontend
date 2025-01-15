@@ -47,10 +47,14 @@ const bookmark = ({ accessToken }) => {
       <div className="bookmark__card">
         {albumData.length > 0 ? (
           albumData.map((album) => (
-            <li key={album.id} className="card">
-              <img className="card__image" src={album.image} alt={album.name} />
-              <div className="card__description">
-                <h2 className="card__name">{album.name}</h2>
+            <li key={album.id} className="bookmark__card-item">
+              <img
+                className="bookmark__card-image"
+                src={album.image}
+                alt={album.name}
+              />
+              <div className="bookmark__card-description">
+                <h2 className="bookmark__card-name">{album.name}</h2>
               </div>
             </li>
           ))

@@ -6,7 +6,7 @@
   border-radius: 50px;
 }
 
-.header__home {
+.header__image-home {
   height: 40px;
   width: 89px;
   background-color: aliceblue;
@@ -22,25 +22,25 @@
   margin-left: auto;
 }
 
-.header__spotify-btn {
+.header__button-login {
   background-color: aliceblue;
   border: none;
   margin-right: 50px;
 }
 
-.header__spotify-btn:hover {
+.header__button-login:hover {
   background-color: rgb(123, 247, 206);
   border-radius: 5px;
   cursor: pointer;
 }
 
-.header__logout-btn {
+.header__button-logout {
   background-color: aliceblue;
   border: none;
   margin-right: 50px;
 }
 
-.header__logout-btn:hover {
+.header__button-logout:hover {
   background-color: rgb(123, 247, 206);
   border-radius: 5px;
   cursor: pointer;
