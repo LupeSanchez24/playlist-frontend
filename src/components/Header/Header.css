@@ -1,0 +1,47 @@
+.header {
+  display: flex;
+  align-items: center;
+  padding: 10px 0 10px;
+  background-color: aliceblue;
+  border-radius: 50px;
+}
+
+.header__image-home {
+  height: 40px;
+  width: 89px;
+  background-color: aliceblue;
+  margin-left: 20px;
+}
+
+.header__avatar {
+  width: 15px;
+}
+.header__button {
+  font-family: roboto, Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  margin-left: auto;
+}
+
+.header__button-login {
+  background-color: aliceblue;
+  border: none;
+  margin-right: 50px;
+}
+
+.header__button-login:hover {
+  background-color: rgb(123, 247, 206);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.header__button-logout {
+  background-color: aliceblue;
+  border: none;
+  margin-right: 50px;
+}
+
+.header__button-logout:hover {
+  background-color: rgb(123, 247, 206);
+  border-radius: 5px;
+  cursor: pointer;
+}

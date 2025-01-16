@@ -1,0 +1,68 @@
+.bookmark__title {
+  font-family: roboto, Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  font-size: 50px;
+  color: #fff;
+}
+
+.bookmark__image {
+  width: 100%;
+  height: 250px;
+  margin-top: 20px;
+  border-radius: 20px;
+}
+
+.bookmark__card {
+  display: flex;
+  flex-wrap: wrap;
+  grid-gap: 20px 17px;
+  margin-left: 10px;
+}
+
+.bookmark__card-item {
+  width: 150px;
+  list-style-type: none;
+  display: flex;
+  align-content: flex-start;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.card__bookmark {
+  background-color: #fff;
+  border-radius: 15px;
+  position: absolute;
+  margin-left: 120px;
+  margin-top: 4px;
+}
+
+.bookmark__card-name {
+  font-family: roboto, Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  top: 15px;
+  background-color: transparent;
+  padding: 2px 12px;
+  color: #fff;
+  border-radius: 4px;
+  font-size: 15px;
+  margin-right: 10px;
+}
+
+.bookmark__card-image {
+  width: 100%;
+  border-radius: 19px;
+  border: 1px solid;
+  color: rgba(0, 0, 0, 0.3);
+}
+.card__description {
+  display: flex;
+}
+
+@media (max-width: 600px) {
+  .card {
+    width: 80px;
+  }
+  .card__name {
+    font-size: 8px;
+  }
+}

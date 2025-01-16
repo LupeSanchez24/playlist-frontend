@@ -1,0 +1,42 @@
+.sidebar {
+  color: aliceblue;
+}
+
+.sidebar__user {
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+}
+
+.sidebar__user-username {
+  margin-left: 10px;
+  font-size: 15px;
+}
+
+.sidebar__user-avatar {
+  border-radius: 50%;
+  width: 30px;
+}
+
+.sidebar__option {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+}
+.sidebar__option a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.sidebar__option-bookmark {
+  margin-right: 20px;
+  margin-bottom: 0;
+  margin-top: 10px;
+  font-size: 15px;
+}
+
+.sidebar__option-bookmark:hover {
+  background-color: rgb(123, 247, 206);
+  border-radius: 5px;
+  cursor: pointer;
+}

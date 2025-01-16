@@ -1,0 +1,104 @@
+.profile {
+  display: grid;
+  grid-template-columns: minmax(auto, 250px) auto;
+  margin-top: 20px;
+}
+
+.profile__search {
+  margin-left: 20px;
+}
+
+.profile__search-form {
+  color: #fff;
+  margin-left: 10px;
+}
+
+.profile__search-input {
+  margin-top: 20px;
+  margin-left: 10px;
+  background-color: aliceblue;
+  border: none;
+  border-radius: 20px;
+}
+
+.profile__search-submit {
+  background-color: aliceblue;
+  border: none;
+  margin-left: 10px;
+  border-radius: 20px;
+}
+
+.profile__sidebar {
+  background-color: black;
+  border-radius: 30px;
+  padding-bottom: 300px;
+}
+
+.profile__album {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.profile__album-card {
+  width: 150px;
+  list-style-type: none;
+  margin-left: 20px;
+  margin-top: 20px;
+}
+.album__bookmark {
+  background-color: #fff;
+  border-radius: 15px;
+  position: absolute;
+  margin-left: 120px;
+  margin-top: 4px;
+}
+
+.album__description {
+  display: flex;
+}
+
+.profile__album-name {
+  font-family: roboto, Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  top: 15px;
+  padding: 2px 12px;
+  color: #fff;
+  font-size: 15px;
+  margin-bottom: 2px;
+}
+
+.profile__album-artist {
+  font-family: roboto, Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  top: 15px;
+  padding: 2px 12px;
+  color: #fff;
+  font-size: 15px;
+  margin-top: 2px;
+}
+.profile__album-image {
+  width: 100%;
+  border-radius: 19px;
+  border: 1px solid;
+  color: rgba(0, 0, 0, 0.3);
+}
+
+.profile__album-placeholder {
+  font-family: roboto, Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  top: 10px;
+  padding: 2px 12px;
+  color: #fff;
+}
+
+@media (max-width: 600px) {
+  .profile__album-card {
+    width: 80px;
+  }
+  .profile__album-name {
+    font-size: 10px;
+  }
+  .profile__album-artist {
+    font-size: 10px;
+  }
+}
