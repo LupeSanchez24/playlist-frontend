@@ -21,7 +21,7 @@ function Main() {
     setGreeting(getGreeting());
   }, []);
   return (
-    <main>
+    <main className="main">
       <p className="main__title">Hello, {greeting} !</p>
       <img className="main__image" alt="homepage image" src={homepage} />
     </main>
